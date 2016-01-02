@@ -49,7 +49,7 @@ function update-conference-website {
 }
 
 function update-gdggr-website {
-  echo Under construction. This option is not ready yet.
+  update-container $GDGGR_WEB_REPO $GDGGR_WEB_ALIAS $GDGGR_WEB_PORT
 }
 
 function update-proxy {
