@@ -3,7 +3,7 @@ OPTIONS="Update-Conference-Website Update-GDGGR-Website Update-Proxy Update-All 
 
 CONF_WEB_REPO="mccrackend/conference_website"
 CONF_WEB_ALIAS="conf_web"
-CONF_WEB_PORT="3000"
+CONF_WEB_PORT="172.17.42.1:3000"
 
 PROXY_REPO="gdggr/web-proxy"
 PROXY_ALIAS="proxy"
