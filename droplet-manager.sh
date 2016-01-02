@@ -1,13 +1,9 @@
 #!/bin/bash
 OPTIONS="Update-Conference-Website Update-GDGGR-Website Update-Proxy Update-All Quit"
 
-PROXY_REPO="gdggr/web-proxy"
 CONFERENCE_WEB_REPO="mccrackend/conference_website"
 GDGGR_WEB_REPO="gar"
-
-function update-proxy {
-  echo "Updating docker image for" $PROXY_REPO
-}
+PROXY_REPO="gdggr/web-proxy"
 
 function update-conference-website {
   echo "Updating docker image for" $CONFERENCE_WEB_REPO
@@ -15,6 +11,10 @@ function update-conference-website {
 
 function update-gdggr-website {
   echo Under construction. This option is not ready yet.
+}
+
+function update-proxy {
+  echo "Updating docker image for" $PROXY_REPO
 }
 
 select opt in $OPTIONS; do
