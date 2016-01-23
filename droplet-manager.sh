@@ -62,37 +62,37 @@ function run-rest-api {
 }
 
 function update-conference-website {
-  update-container $CONF_WEB_REPO $CONF_WEB_ALIAS $CONF_WEB_PORT
-  run-web-site $CONF_WEB_REPO $CONF_WEB_ALIAS $CONF_WEB_PORT
+  update-container $1 $2 $3
+  run-web-site $1 $2 $3
 }
 
 function update-gdggr-website {
-  update-container $GDGGR_WEB_REPO $GDGGR_WEB_ALIAS $GDGGR_WEB_PORT
-  run-web-site $GDGGR_WEB_REPO $GDGGR_WEB_ALIAS $GDGGR_WEB_PORT
+  update-container $1 $2 $3
+  run-web-site $1 $2 $3
 }
 
 function update-proxy {
-  update-container $PROXY_REPO $PROXY_ALIAS $PROXY_PORT
-  run-web-site $PROXY_REPO $PROXY_ALIAS $PROXY_PORT
+  update-container $1 $2 $3
+  run-web-site $1 $2 $3
 }
 
 function update-gio-rest {
-  update-container $GIO_REST_REPO $GIO_REST_ALIAS $GIO_REST_PORT
-  run-rest-api $GIO_REST_REPO $GIO_REST_ALIAS $GIO_REST_PORT $GIO_DB_ALIAS
+  update-container $1 $2 $3
+  run-rest-api $1 $2 $3 $4
 }
 
 select opt in $OPTIONS; do
   if [ "$opt" = "Update-Conference-Website" ]; then
-    update-conference-website
+    update-conference-website $CONF_WEB_REPO $CONF_WEB_ALIAS $CONF_WEB_PORT
     exit
   elif [ "$opt" = "Update-GDGGR-Website" ]; then
-    update-gdggr-website
+    update-gdggr-website $GDGGR_WEB_REPO $GDGGR_WEB_ALIAS $GDGGR_WEB_PORT
     exit
   elif [ "$opt" = "Update-Proxy" ]; then
-    update-proxy
+    update-proxy $PROXY_REPO $PROXY_ALIAS $PROXY_PORT
     exit
   elif [ "$opt" = "Update-Gio-Rest" ]; then
-    update-gio-rest
+    update-gio-rest $GIO_REST_REPO $GIO_REST_ALIAS $GIO_REST_PORT $GIO_DB_ALIAS
     exit
   else
     clear
