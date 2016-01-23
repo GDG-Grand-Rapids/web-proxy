@@ -14,10 +14,15 @@ Image is maintained in docker hub here: https://hub.docker.com/r/gdggr/web-proxy
 
 ## gdggr.org will run on port `5000`
 
+## gioapi.gdggr.org will run on port `7000`
+
 # Utils
 
 ## droplet-manager.sh
 Management script for the droplet. Allows for updating individual applications or updating everything and getting it running.
+
+### Usage
+```$ ./droplet-manager.sh```
 
 ## docker-builder.sh
 Docker Hub doesn't have automated builds for the GDGGR organization (only your personal account I guess).  This makes the build and push consistent to the different repos.
