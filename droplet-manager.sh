@@ -9,7 +9,9 @@ PROXY_REPO="gdggr/web-proxy"
 PROXY_ALIAS="proxy"
 PROXY_PORT="80"
 
-GDGGR_WEB_REPO="gar"
+GDGGR_WEB_REPO="mccrackend/conference_website"
+GDGGR_WEB_ALIAS="gdggr_web"
+GDGGR_WEB_PORT="172.17.42.1:5000"
 
 function update-container {
   clear
@@ -47,7 +49,7 @@ function update-conference-website {
 }
 
 function update-gdggr-website {
-  echo Under construction. This option is not ready yet.
+  update-container $GDGGR_WEB_REPO $GDGGR_WEB_ALIAS $GDGGR_WEB_PORT
 }
 
 function update-proxy {
