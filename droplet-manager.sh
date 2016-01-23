@@ -19,7 +19,7 @@ GIO_REST_PORT="172.17.42.1:7000"
 
 GIO_DB_REPO="gdggr/gio-db"
 GIO_DB_ALIAS="gio-db"
-GIO_DB_PORT="172.17.42.1:7001"
+GIO_DB_PORT="172.17.42.1:5432"
 
 function update-container {
   clear
@@ -61,6 +61,13 @@ function run-rest-api {
   docker ps -a
 }
 
+function run-db {
+  echo
+  echo "=====>" Running the latest db container
+  docker run --name $2 -p $3:5432 -d $1:latest
+  docker ps -a
+}
+
 function update-conference-website {
   update-container $1 $2 $3
   run-web-site $1 $2 $3
@@ -81,6 +88,11 @@ function update-gio-rest {
   run-rest-api $1 $2 $3 $4
 }
 
+function update-gio-db {
+  update-container $1 $2 $3
+  run-db $1 $2 $3
+}
+
 select opt in $OPTIONS; do
   if [ "$opt" = "Update-Conference-Website" ]; then
     update-conference-website $CONF_WEB_REPO $CONF_WEB_ALIAS $CONF_WEB_PORT
@@ -93,6 +105,9 @@ select opt in $OPTIONS; do
     exit
   elif [ "$opt" = "Update-Gio-Rest" ]; then
     update-gio-rest $GIO_REST_REPO $GIO_REST_ALIAS $GIO_REST_PORT $GIO_DB_ALIAS
+    exit
+  elif [ "$opt" = "Update-Gio-Db" ]; then
+    update-gio-db $GIO_DB_REPO $GIO_DB_ALIAS $GIO_DB_PORT
     exit
   else
     clear
