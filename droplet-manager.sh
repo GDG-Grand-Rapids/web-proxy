@@ -9,7 +9,7 @@ PROXY_REPO="gdggr/web-proxy"
 PROXY_ALIAS="proxy"
 PROXY_PORT="80"
 
-GDGGR_WEB_REPO="mccrackend/conference_website"
+GDGGR_WEB_REPO="jwill824/gdg_website"
 GDGGR_WEB_ALIAS="gdggr_web"
 GDGGR_WEB_PORT="172.17.42.1:5000"
 
