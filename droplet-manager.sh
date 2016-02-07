@@ -15,11 +15,11 @@ GDGGR_WEB_PORT="172.17.42.1:5000"
 
 GIO_REST_REPO="gdggr/gio-rest"
 GIO_REST_ALIAS="gio-rest"
-GIO_REST_PORT="172.17.42.1:7000"
+GIO_REST_PORT="7000"
 
 GIO_DB_REPO="gdggr/gio-db"
 GIO_DB_ALIAS="gio-db"
-GIO_DB_PORT="172.17.42.1:5432"
+GIO_DB_PORT="5432"
 
 function update-container {
   clear
@@ -57,14 +57,14 @@ function run-web-site {
 function run-rest-api {
   echo
   echo "=====>" Running the latest rest api container
-  docker run --name $2 -it --link $4:$4 -p $3:8080 -d $1:latest
+  docker run -m 150M --name $2 -it --link $4:$4 -p $3:8080 -d $1:latest
   docker ps -a
 }
 
 function run-db {
   echo
   echo "=====>" Running the latest db container
-  docker run --name $2 -p $3:5432 -d $1:latest
+  docker run -m 50M --name $2 -p $3:5432 -d $1:latest
   docker ps -a
 }
 
@@ -110,7 +110,6 @@ select opt in $OPTIONS; do
     update-gio-db $GIO_DB_REPO $GIO_DB_ALIAS $GIO_DB_PORT
     exit
   else
-    clear
-    echo bad option
+    exit
   fi
 done
