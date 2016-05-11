@@ -34,4 +34,4 @@ Docker Hub doesn't have automated builds for the GDGGR organization (only your p
 ## start-docker-machine.sh
 Best way to use docker on a Mac: https://docs.docker.com/engine/installation/mac/
 
-It's pretty annoying to remember to do these commands when you want to start docker-machine.. This handles that, but you still have to maually run the `eval "$(docker-machine env default)"` bit when it prompts.
+It's pretty annoying to remember to do these commands when you want to start docker-machine.. This handles that, but you still have to manually run the `eval "$(docker-machine env default)"` bit when it prompts.

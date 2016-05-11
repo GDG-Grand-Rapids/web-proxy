@@ -1,5 +1,5 @@
 #!/bin/bash
-OPTIONS="Update-Conference-Website Update-GDGGR-Website Update-Proxy Update-Gio-Rest Update-Gio-Db Update-All Quit"
+OPTIONS="Update-Conference-Website Update-GDGGR-Website Update-Proxy Update-Gio-Rest Update-Gio-Db Update-Web-Hook Quit"
 
 CONF_WEB_REPO="mccrackend/conference_website"
 CONF_WEB_ALIAS="conf_web"
@@ -9,7 +9,7 @@ PROXY_REPO="gdggr/web-proxy"
 PROXY_ALIAS="proxy"
 PROXY_PORT="80"
 
-GDGGR_WEB_REPO="jwill824/gdg_website"
+GDGGR_WEB_REPO="jwill824/gdg_webapp"
 GDGGR_WEB_ALIAS="gdggr_web"
 GDGGR_WEB_PORT="172.17.42.1:5000"
 
@@ -21,6 +21,10 @@ GIO_DB_REPO="gdggr/gio-db"
 GIO_DB_ALIAS="gio-db"
 GIO_DB_PORT="172.17.42.1:5432"
 
+WEB_HOOK_REPO="jwill824/web-hook"
+WEB_HOOK_ALIAS="web-hook"
+WEB_HOOK_PORT="172.17.42.1:9000"
+
 function update-container {
   clear
   echo "=====> Updating docker image   =>" $1
@@ -29,7 +33,8 @@ function update-container {
   echo
 
   echo "=====>" Tagging current running container image as backup
-  docker tag -f $1:latest $1:backup
+  epochDate=$(date +%s)
+  docker tag -f $1:latest $1:backup-$epochDate
   docker images
 
   echo
@@ -51,6 +56,13 @@ function run-web-site {
   echo
   echo "=====>" Running the latest container as a web site
   docker run --name $2 -p $3:80 -d $1:latest
+  docker ps -a
+}
+
+function run-web-hook {
+  echo
+  echo "=====>" Running the latest container as the python web-hook
+  docker run --name $2 -p $3:5000 -d $1:latest
   docker ps -a
 }
 
@@ -93,6 +105,11 @@ function update-gio-db {
   run-db $1 $2 $3
 }
 
+function update-web-hook {
+  update-container $1 $2 $3
+  run-web-hook $1 $2 $3
+}
+
 select opt in $OPTIONS; do
   if [ "$opt" = "Update-Conference-Website" ]; then
     update-conference-website $CONF_WEB_REPO $CONF_WEB_ALIAS $CONF_WEB_PORT
@@ -108,6 +125,11 @@ select opt in $OPTIONS; do
     exit
   elif [ "$opt" = "Update-Gio-Db" ]; then
     update-gio-db $GIO_DB_REPO $GIO_DB_ALIAS $GIO_DB_PORT
+    exit
+  elif [ "$opt" = "Update-Web-Hook" ]; then
+    update-web-hook $WEB_HOOK_REPO $WEB_HOOK_ALIAS $WEB_HOOK_PORT
+    exit
+  elif [ "$opt" = "Quit" ]; then
     exit
   else
     clear
