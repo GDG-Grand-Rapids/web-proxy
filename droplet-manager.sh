@@ -21,6 +21,10 @@ GIO_DB_REPO="gdggr/gio-db"
 GIO_DB_ALIAS="gio-db"
 GIO_DB_PORT="172.17.42.1:5432"
 
+WEB_HOOK_REPO="jwill824/web-hook"
+WEB_HOOK_ALIAS="web-hook"
+WEB_HOOK_PORT="172.17.42.1:9000"
+
 function update-container {
   clear
   echo "=====> Updating docker image   =>" $1
@@ -52,6 +56,13 @@ function run-web-site {
   echo
   echo "=====>" Running the latest container as a web site
   docker run --name $2 -p $3:80 -d $1:latest
+  docker ps -a
+}
+
+function run-web-hook {
+  echo
+  echo "=====>" Running the latest container as the python web-hook
+  docker run --name $2 -p $3:5000 -d $1:latest
   docker ps -a
 }
 
@@ -94,6 +105,11 @@ function update-gio-db {
   run-db $1 $2 $3
 }
 
+function update-web-hook {
+  update-container $1 $2 $3
+  run-web-hook $1 $2 $3
+}
+
 select opt in $OPTIONS; do
   if [ "$opt" = "Update-Conference-Website" ]; then
     update-conference-website $CONF_WEB_REPO $CONF_WEB_ALIAS $CONF_WEB_PORT
@@ -109,6 +125,9 @@ select opt in $OPTIONS; do
     exit
   elif [ "$opt" = "Update-Gio-Db" ]; then
     update-gio-db $GIO_DB_REPO $GIO_DB_ALIAS $GIO_DB_PORT
+    exit
+  elif [ "$opt" = "Update-Web-Hook" ]; then
+    update-gdggr-website $WEB_HOOK_REPO $WEB_HOOK_ALIAS $WEB_HOOK_PORT
     exit
   else
     clear
