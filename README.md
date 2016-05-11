@@ -18,6 +18,8 @@ Image is maintained in docker hub here: https://hub.docker.com/r/gdggr/web-proxy
 
 ## gio-db will run on port `5432`
 
+## web-hook will run on port `9000`
+
 # Utils
 
 ## droplet-manager.sh
