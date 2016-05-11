@@ -1,5 +1,5 @@
 #!/bin/bash
-OPTIONS="Update-Conference-Website Update-GDGGR-Website Update-Proxy Update-Gio-Rest Update-Gio-Db Update-All Quit"
+OPTIONS="Update-Conference-Website Update-GDGGR-Website Update-Proxy Update-Gio-Rest Update-Gio-Db Update-Web-Hook Quit"
 
 CONF_WEB_REPO="mccrackend/conference_website"
 CONF_WEB_ALIAS="conf_web"
@@ -127,7 +127,9 @@ select opt in $OPTIONS; do
     update-gio-db $GIO_DB_REPO $GIO_DB_ALIAS $GIO_DB_PORT
     exit
   elif [ "$opt" = "Update-Web-Hook" ]; then
-    update-gdggr-website $WEB_HOOK_REPO $WEB_HOOK_ALIAS $WEB_HOOK_PORT
+    update-web-hook $WEB_HOOK_REPO $WEB_HOOK_ALIAS $WEB_HOOK_PORT
+    exit
+  elif [ "$opt" = "Quit" ]; then
     exit
   else
     clear
